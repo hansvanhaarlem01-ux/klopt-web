@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17100B">
+<title>De doggybag: online quiz met 10 vragen | Klopt!</title>
+<meta name="description" content="Online quiz met 10 vragen: Tien vragen over Amerika, van de Mississippi tot Woodstock. Gratis en zonder account, u typt zelf het antwoord.">
+<link rel="canonical" href="https://klopt-app.nl/quiz/amerika/">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/speel-bestanden/speel.css">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"MobileApplication","name":"Klopt!","operatingSystem":"iOS, Android","applicationCategory":"GameApplication","inLanguage":"nl","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"url":"https://klopt-app.nl"},{"@context":"https://schema.org","@type":"Organization","name":"Klopt!","url":"https://klopt-app.nl","logo":"https://klopt-app.nl/apple-touch-icon.png"}]</script>
+</head>
+<body>
+<main>
+  <a class="merk" href="/"><img src="/apple-touch-icon.png" alt="" width="48" height="48">Klopt!</a>
+
+  <section id="vooraf">
+    <h1>De doggybag: speel deze online quiz</h1>
+    <p>Tien vragen over Amerika, van de Mississippi tot Woodstock. Een typfout kost u niets: de quizmaster begrijpt wat u bedoelt.</p>
+    <button id="start" class="knop vol" type="button">Start de ronde</button>
+    <p id="start-fout" class="melding" hidden>De ronde laadt even niet. Probeer het zo nog eens.</p>
+    <p class="stil" style="margin-top:10px">Gratis, geen account nodig. Tien vragen, tien minuten.</p>
+    <a id="winkel-boven" class="knop winkel-link" href="/s/web-amerika-20261008" style="margin-top:14px" hidden></a>
+    <p id="plak-hint-boven" class="stil" style="margin-top:10px" hidden>Tik bij het aanmelden in de app op Plakken, dan slaat u de proefrondes over.</p>
+
+    <h2>Over deze ronde</h2>
+    <p>Elke quiz heeft een ronde zonder onderwerp, en dit is die ronde: de restjes van het Amerikaanse buffet. Geen thema, geen rode draad, geen excuus.</p>
+    <h3>Drie vragen vooraf</h3>
+    <ol class="voorproef"><li>Welke rivier deelt de Verenigde Staten ruwweg in tweeën, ontspringt in Minnesota en mondt bij New Orleans uit in de Golf van Mexico?</li><li>Het bekendste adres van Washington D.C. begint met huisnummer 1600. Aan welke laan staat het Witte Huis?</li><li>Welke Amerikaanse schilder legde zijn doeken op de vloer en liet er verf op druipen en spatten, een techniek die bekend werd als &quot;drip painting&quot;?</li></ol>
+
+    <h2>Zo werkt het</h2>
+    <p>U typt uw antwoorden gewoon zelf. Een typfout of een andere schrijfwijze kost u niets. De antwoorden worden pas nagekeken als u inlevert, en dan ziet u per vraag of het klopt.</p>
+    <p>Blijft u de hele ronde bij de quiz, dan krijgt u een eerlijkheidsbonus: uw punten × 1,5. Een ander tabblad openen of het scherm vergrendelen telt na 8 seconden als weggaan. De eerste keer kost dat de bonus, elke volgende keer ook 2 minuten. Beeld en geluid in de vraag afspelen mag gewoon.</p>
+    <h2>Speel nu &quot;Van bakkie pleur tot flat white&quot; in de app</h2>
+    <p>Deze ronde komt uit een eerdere quiz. In de app loopt nu &quot;Van bakkie pleur tot flat white&quot;, met een nieuw thema. Klopt! is een Nederlandse pubquiz-app voor iPhone en Android. U speelt alleen, met vrienden in uw eigen kroeg, of in een team.</p>
+    <p><a class="winkel-link" href="/s/web-amerika-20261008">Bekijk Klopt! in de winkel</a></p>
+  </section>
+
+  <section id="uit" hidden>
+    <h1>De doggybag: speel deze online quiz</h1>
+    <p>De ronde is hier even niet te spelen. In de app kan het altijd: elke twee weken een nieuwe quiz, steeds met een ander thema.</p>
+    <a class="knop vol winkel-link" href="/s/web-amerika-20261008">Bekijk Klopt! in de winkel</a>
+  </section>
+
+  <section id="intro" hidden>
+    <h2 id="intro-titel" style="margin-top:0"></h2>
+    <div id="intro-tekst"></div>
+    <p class="stil">De klok start zodra u op de knop tikt. Daarna hebt u tien minuten. Een ander tabblad openen of het scherm vergrendelen telt na 8 seconden als weggaan.</p>
+    <button id="klok-start" class="knop vol" type="button">Start de klok</button>
+  </section>
+
+  <div id="balk" class="kop" hidden>
+    <span id="klok" class="klok" role="timer"></span>
+    <span id="bonus" class="bonus"></span>
+  </div>
+
+  <section id="spel" hidden>
+    <h2 id="spel-titel" style="margin-top:8px"></h2>
+    <div id="lat" class="lat" role="img" hidden>
+      <div id="lat-streep" class="lat-streep"></div>
+      <span id="lat-tel" class="lat-tel"></span>
+    </div>
+    <div id="krat-blok" class="krat-blok">
+      <div class="krat-label"><span>Het kratje</span><span id="krat-tel"></span></div>
+      <div class="krat-houder">
+        <div id="krat" class="krat"></div>
+        <div id="krat-laag" class="krat-laag" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div id="vraag"></div>
+    <div class="navigatie">
+      <button id="vorige" class="knop" type="button">Vorige</button>
+      <button id="volgende" class="knop" type="button">Volgende</button>
+    </div>
+    <button id="inleveren" class="knop" type="button" hidden>Aan de bar afgeven</button>
+  </section>
+
+  <section id="afrond" hidden>
+    <div id="afrond-keuze">
+      <h2 id="afrond-kop" class="afrond-kop"></h2>
+      <p id="afrond-sub" class="zacht"></p>
+      <div id="afrond-lijst"></div>
+      <div class="afrond-knoppen">
+        <button id="afgeven" class="knop vol" type="button">Aan de bar afgeven</button>
+        <button id="afrond-terug" class="tekstknop" type="button"></button>
+      </div>
+    </div>
+    <div id="afrond-niets" hidden>
+      <h2 class="afrond-kop">Niets ingevuld</h2>
+      <p class="zacht">U hebt nog geen enkel antwoord gegeven. Toch afgeven?</p>
+      <div class="afrond-knoppen">
+        <button id="toch-afgeven" class="knop vol" type="button">Toch afgeven</button>
+        <button id="niets-terug" class="tekstknop" type="button">Terug</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="wacht" class="wacht" hidden aria-live="polite">
+    <div id="glas" class="glas" aria-hidden="true"></div>
+    <h2 class="wacht-kop">Uw antwoorden liggen bij de jury</h2>
+    <p class="zacht wacht-sub">Neem een drankje, er wordt streng maar rechtvaardig nagekeken.</p>
+    <p class="wacht-vrij">U mag dit tabblad nu gerust verlaten — dit telt niet mee voor uw bonus</p>
+  </section>
+
+  <section id="fout" hidden aria-live="polite">
+    <h2 style="margin-top:0">Even geduld</h2>
+    <p id="fout-tekst"></p>
+    <button id="opnieuw" class="knop vol" type="button">Opnieuw nakijken</button>
+  </section>
+
+  <section id="uitslag" hidden>
+    <p class="stil">Uw score</p>
+    <p id="score" class="score"></p>
+    <p id="score-sub" class="zacht"></p>
+    <p id="niet-nagekeken" class="melding" hidden></p>
+
+    <!-- Besluit eigenaar 05-11: de sterke knop direct onder de score, compact, zodat de antwoorden hoog blijven staan. -->
+    <div class="uitslag-boven">
+      <a id="winkel" class="knop vol" href="/s/web-amerika-20261008" hidden></a>
+      <a id="naar-qr" class="knop vol" href="#zin-in-meer" hidden>Bekijk Klopt! in de app</a>
+      <p id="plak-hint" class="stil" hidden>Tik bij het aanmelden in de app op Plakken, dan slaat u de proefrondes over.</p>
+    </div>
+
+    <h2>Per vraag</h2>
+    <div id="rijen"></div>
+
+    <!-- Wie de antwoorden heeft bekeken, komt hier uit. Stille knop: de gouden staat al boven (één gevulde knop per scherm). -->
+    <div id="zin-in-meer" class="paneel uitslag-onder">
+      <h2 style="margin-top:0">Zin in meer?</h2>
+      <p id="uitnodiging-tekst"></p>
+      <a id="winkel-onder" class="knop" href="/s/web-amerika-20261008" hidden></a>
+      <p id="plak-hint-onder" class="stil" style="margin-top:10px" hidden>Tik bij het aanmelden in de app op Plakken, dan slaat u de proefrondes over.</p>
+      <div id="qr-blok" hidden>
+        <p class="zacht">Scan de code met uw telefoon.</p>
+        <svg id="qr" class="qr" role="img" aria-label="QR-code naar Klopt! in de winkel"></svg>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/">Over Klopt!</a> · <a href="/privacy/">Privacy</a>
+  </footer>
+</main>
+<script type="application/json" id="gegevens">{"slug":"amerika","pagina":"amerika","code":"web-amerika-20261008","lopende_quiz":{"naam":"Van bakkie pleur tot flat white","einde":"2026-11-16T06:00:00+00:00"},"hoort_bij_lopend":false}</script>
+<script src="/installeren/qr.js" defer></script>
+<script src="/speel-bestanden/speel.js" defer></script>
+</body>
+</html>
