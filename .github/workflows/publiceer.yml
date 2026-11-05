@@ -1,0 +1,32 @@
+# Feature 150 — genereert de pagina's uit het openbare manifest. Geen geheimen: het manifest is openbaar en bevat per
+# constructie alleen gesloten rondes. Commit alleen bij echt verschil.
+name: publiceer
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  genereer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Genereren
+        # Rechtstreeks bij de functie: zo staan de pagina's al klaar vóór de Netlify-deploy die /w/ pas mogelijk maakt.
+        run: node bron/genereer.mjs https://zolgrisaorbzhqszjvwv.supabase.co/functions/v1/webronde/manifest .
+      - name: Committen bij verschil
+        run: |
+          git config user.name "Klopt!"
+          git config user.email "noreply@klopt-app.nl"
+          git add speel quiz quizzen sitemap.xml speel-bestanden
+          if git diff --cached --quiet; then
+            echo "geen verschil"
+          else
+            git commit -q -m "Pagina's bijgewerkt"
+            git push -q
+          fi

@@ -1,0 +1,200 @@
+/* Feature 150 — de webronde. Grondwet 7.9.0, sectie Web Round.
+ *
+ * ⛔ Kleuren staan ALLEEN hier bovenin, als kopie van src/styles/colors.ts onder dezelfde naam.
+ *    `node webronde/kleurcontrole.mjs` bewijst dat ze gelijk zijn en meet het contrast.
+ * ⛔ Eén donkere stand; de lamp is de enige gevulde knop op een scherm. */
+:root {
+  --night: #17100B;
+  --paneel: #251A10;
+  --paneelDiep: #1D1409;
+  --kratBoven: #2B1D11;
+  --kratOnder: #221709;
+  --vak: #1A1109;
+  --houtRand: #3F2C1A;
+  --lijn: #35261A;
+  --omlijning: #56402A;
+  --knopRand: #7A5B3B;
+  --koperDiep: #815925;
+  --koper: #8A6432;
+  --koperLicht: #C08C42;
+  --raised: #241A10;
+  --zwart: #000000;
+  --kroonkurk: #88602F;
+  --lamp: #F0C46A;
+  --lampGloed: rgba(255,196,106,0.30);
+  --opLamp: #2B1C0E;
+  --tekst: #F6E9D2;
+  --tekstZacht: #B39A76;
+  --tekstStil: #A08A66;
+  --aandacht: #E0A45C;
+  --fout: #C99A86;
+  --foutRand: #8A5240;
+  --schuim: #F3E2C2;
+  --goed: #93B089;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/Fraunces-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--night); color-scheme: dark; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--tekst);
+  background: radial-gradient(ellipse 120% 520px at 50% -80px, var(--lampGloed), transparent 70%), var(--night);
+  font: 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-wrap: anywhere;
+}
+main { max-width: 640px; margin: 0 auto; padding: 20px 16px 56px; }
+h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 700; line-height: 1.2; margin: 0 0 12px; }
+h1 { font-size: 32px; }
+h2 { font-size: 23px; margin-top: 32px; }
+h3 { font-size: 18px; }
+p { margin: 0 0 14px; }
+a { color: var(--lamp); }
+.zacht { color: var(--tekstZacht); }
+.stil { color: var(--tekstStil); font-size: 14px; }
+[hidden] { display: none !important; }
+
+.merk { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--tekst); text-decoration: none; font-family: "Fraunces", Georgia, serif; font-size: 30px; font-weight: 700; line-height: 1; }
+.merk img { width: 48px; height: 48px; border-radius: 11px; }
+
+.knop {
+  display: block; width: 100%; min-height: 52px; padding: 14px 18px;
+  border: 1px solid var(--knopRand); border-radius: 12px;
+  background: transparent; color: var(--tekst);
+  font-family: inherit; font-size: 17px; font-weight: 700; line-height: 1.2; text-align: center; text-decoration: none; cursor: pointer;
+}
+.knop.vol { background: var(--lamp); border-color: var(--lamp); color: var(--opLamp); }
+.knop:disabled { opacity: .55; cursor: default; }
+.knop:focus-visible, button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--lamp); outline-offset: 2px; }
+
+.paneel { background: linear-gradient(var(--paneel), var(--paneelDiep)); border: 1px solid var(--omlijning); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+
+/* --- Vooraf --- */
+.voorproef { padding-left: 20px; margin: 0 0 14px; }
+.voorproef li { margin-bottom: 8px; }
+.ronde-lijst { list-style: none; padding: 0; margin: 0; }
+.ronde-lijst li { padding: 10px 0; border-bottom: 1px solid var(--lijn); }
+
+/* --- Tijdens de ronde --- */
+.kop { position: sticky; top: 8px; z-index: 2; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 12px; padding: 10px 14px; border-radius: 12px; background: var(--night); }
+.klok { font: 700 26px/1 "Fraunces", Georgia, serif; color: var(--lamp); font-variant-numeric: tabular-nums; }
+.klok.bijna { color: var(--aandacht); }
+.bonus { font-size: 14px; color: var(--tekstZacht); }
+
+/* Het kratje: src/components/round/Kratje.tsx. ⛔ De hoek van 158° is VERLOOP_HOEK in src/styles/verloop.ts. */
+.krat-blok { width: 268px; max-width: 100%; margin: 8px auto 16px; }
+.krat-label { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 8px; margin-bottom: 6px; font-size: 12px; color: var(--tekstStil); }
+.krat-houder { position: relative; }
+.krat {
+  position: relative; display: grid; grid-template-columns: repeat(5, 48px); gap: 4px; justify-content: center;
+  padding: 5px; border-radius: 8px; border: 1px solid var(--lijn);
+  background: linear-gradient(158deg, var(--kratBoven), var(--raised));
+}
+/* De handgrepen: zij maken van een plank een krat. */
+.krat::before, .krat::after { content: ""; position: absolute; top: 50%; width: 4px; height: 24px; margin-top: -12px; border-radius: 2px; background: var(--night); }
+.krat::before { left: 0; }
+.krat::after { right: 0; }
+/* ⛔ Een broer van het krat en geen kind: de vliegende kurk mag nergens worden afgeknipt. */
+.krat-laag { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.vlieger { position: absolute; width: 48px; height: 48px; }
+.vlieger svg { display: block; }
+.vakje { position: relative; width: 48px; height: 48px; padding: 0; border: 1px solid var(--lijn); border-radius: 8px; background: var(--vak); cursor: pointer; display: grid; place-items: center; overflow: hidden; }
+.vakje svg { position: relative; display: block; grid-area: 1 / 1; }
+.vakje .nr { position: relative; grid-area: 1 / 1; font: 400 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--tekst); }
+/* ⛔ "Hier staat u" zit op het vak, niet op het dopje: het licht valt van boven. */
+.vakje.nu { border: 2px solid var(--lamp); background: linear-gradient(180deg, var(--lampGloed), transparent), var(--vak); }
+
+/* Tijdens het typen op een telefoon telt alleen de vraag. */
+body.typt { min-height: 0; }
+/* ⛔ Gemeten op een iPhone (05-11): met toetsenbord en woordsuggesties blijft ~318 px over. Past het veld daar niet in,
+ * dan schuift Safari het hele beeld omhoog, en dan volgt de vastgezette klok niet mee: die belandt achter de statusbalk.
+ * Daarom compact als het moet (`krap`, gekozen in kiesDichtheid), zodat ook een vraag van vijf regels past. */
+body.typt main { padding-top: 8px; padding-bottom: 16px; }
+body.typt .merk, body.typt footer { display: none; }
+body.krap #spel-titel { display: none; }
+body.krap .kop { padding: 6px 12px; }
+body.krap .klok { font-size: 22px; }
+body.krap .lat { margin: 6px 0 8px; }
+body.krap #vraag > .stil { font-size: 13px; margin-bottom: 2px; }
+body.krap .vraag-tekst { font-size: 17px; line-height: 1.35; margin-bottom: 6px; }
+body.krap .instructie { margin: 0 0 6px; }
+body.krap .veld { margin-bottom: 8px; }
+body.krap .veld label { margin-bottom: 2px; }
+
+/* De lat: het ingeklapte krat terwijl het toetsenbord open is. Zelfde bierkleur: donker is nog te doen, licht is gedaan. */
+.lat { display: flex; align-items: center; gap: 8px; margin: 8px 0 14px; }
+.lat-streep { display: flex; gap: 3px; flex: 1; }
+.streepje { flex: 1; height: 6px; border-radius: 3px; background: var(--vak); border: 1px solid var(--lijn); }
+.streepje.vol { background: var(--koperLicht); border-color: var(--koperDiep); }
+.streepje.nu { background: var(--lamp); border-color: var(--lamp); }
+.lat-tel { font-size: 11px; color: var(--tekstStil); }
+
+/* Afronden: src/components/round/AfrondPaneel.tsx */
+#afrond { padding-top: 20px; }
+#afrond.vol { text-align: center; }
+.afrond-kop { font-size: 24px; margin: 0 0 6px; }
+#afrond-sub, #afrond-niets .zacht { font-size: 14px; line-height: 21px; }
+#afrond-lijst { margin-top: 16px; }
+.afrond-rij { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 60px; padding: 8px 0; background: none; border: 0; border-bottom: 1px solid var(--lijn); color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.afrond-nr { flex: none; width: 20px; font-size: 13px; color: var(--tekstStil); text-align: right; }
+.afrond-beeld { flex: none; width: 40px; height: 30px; border-radius: 3px; object-fit: cover; background: var(--vak); }
+.afrond-noot { flex: none; display: flex; align-items: flex-end; gap: 2px; width: 40px; height: 22px; }
+.afrond-noot span { flex: 1; border-radius: 1px; background: var(--koperLicht); }
+.afrond-tekst { flex: 1; min-width: 0; }
+.afrond-vraag { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: 14px; line-height: 19px; color: var(--tekstZacht); }
+.afrond-soort { display: block; margin-top: 2px; font-size: 11px; color: var(--tekstStil); }
+.afrond-pijl { flex: none; font-size: 18px; color: var(--tekstStil); }
+.afrond-knoppen { display: grid; gap: 10px; padding: 14px 0; }
+.tekstknop { min-height: 44px; background: none; border: 0; color: var(--tekstZacht); font: inherit; font-size: 15px; cursor: pointer; }
+
+.vraag-tekst { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.instructie { font-size: 14px; color: var(--tekstZacht); margin: -6px 0 12px; }
+.media { display: block; width: 100%; max-height: 320px; object-fit: contain; border-radius: 10px; margin-bottom: 12px; background: #000000; }
+audio.media { background: none; }
+.veld { margin-bottom: 12px; }
+.veld label { display: block; margin-bottom: 4px; color: var(--tekstZacht); font-size: 14px; }
+.veld input {
+  width: 100%; min-height: 48px; padding: 10px 12px; font: inherit;
+  color: var(--tekst); background: var(--vak); border: 1px solid var(--knopRand); border-radius: 10px;
+}
+.optie { display: block; width: 100%; min-height: 48px; margin-bottom: 8px; padding: 10px 14px; text-align: left; font: inherit; color: var(--tekst); background: transparent; border: 1px solid var(--knopRand); border-radius: 10px; cursor: pointer; }
+.optie[aria-pressed="true"] { border: 2px solid var(--lamp); font-weight: 700; }
+.navigatie { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 16px 0; }
+
+/* --- Wachtscherm --- */
+/* src/components/round/WachtScherm.tsx. Het glas is 92 × 132; de tekening steekt er 23 aan elke kant buiten. */
+.wacht { text-align: center; padding: 56px 12px 28px; }
+.glas { position: relative; width: 92px; height: 132px; margin: 0 auto; }
+/* ⚠️ Absoluut en geen negatieve marge: die zou door het vak heen zakken en de ruimte onder het glas opeten. */
+.glas svg { position: absolute; left: -23px; top: -23px; display: block; }
+.wacht-kop { font-size: 22px; margin: 30px 0 0; text-wrap: balance; }
+.wacht-sub { font-size: 14px; line-height: 21px; margin: 10px 0 56px; }
+.wacht-vrij { font-size: 12.5px; line-height: 19px; color: var(--tekstStil); margin: 0; }
+
+/* --- Uitslag --- */
+.score { font: 700 44px/1 "Fraunces", Georgia, serif; color: var(--lamp); margin-bottom: 4px; }
+.rij { padding: 14px 0; border-bottom: 1px solid var(--lijn); }
+.oordeel { font-weight: 700; display: inline-block; margin-bottom: 4px; }
+/* Zoals in de app: goed in koper (`accent`), fout in `error`. De vorm (✓ of ✗) draagt het verschil, niet de kleur. */
+.oordeel.goed { color: var(--koperLicht); }
+.oordeel.goed::before { content: "✓ "; }
+.oordeel.net-niet { color: var(--fout); }
+.oordeel.net-niet::before { content: "✗ "; }
+.oordeel.open { color: var(--aandacht); }
+.oordeel.open::before { content: "? "; }
+.uitleg { margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--knopRand); }
+
+.uitslag-boven { margin: 14px 0 0; }
+.uitslag-boven .stil { margin: 10px 0 0; }
+.uitslag-onder { margin: 28px 0 0; scroll-margin-top: 16px; }
+.qr { width: 200px; max-width: 100%; display: block; margin: 8px auto 12px; background: #FFFFFF; border-radius: 10px; }
+.melding { padding: 12px 14px; border: 1px solid var(--foutRand); border-radius: 10px; margin-bottom: 14px; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--lijn); font-size: 14px; color: var(--tekstStil); }
+footer a { color: var(--tekstZacht); }
