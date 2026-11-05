@@ -16,6 +16,8 @@ const SPEEL_CODE = "web-speel-20261105";
 const LIJST_CODE = "web-quizzen-20261105";
 // ⭐ Kopie van assets/sounds/klopt_gescoord_aandacht.wav: het geluid als de uitslag openvalt (115).
 const GELUID = "klopt_gescoord_aandacht.wav";
+// Het logo op 2× de weergavemaat (48 px); het app-icoon van 180 px woog 17 kB meer. Uit site/apple-touch-icon.png.
+const LOGO = "logo-96.png";
 
 /** @param {unknown} s */
 const esc = (s) => String(s ?? "")
@@ -130,7 +132,7 @@ function lijstPagina(manifest) {
 </head>
 <body>
 <main>
-  <a class="merk" href="/"><img src="/apple-touch-icon.png" alt="" width="48" height="48">Klopt!</a>
+  <a class="merk" href="/"><img src="/speel-bestanden/logo-96.png" alt="" width="48" height="48">Klopt!</a>
   <h1>Eerdere rondes</h1>
   <p>Elke ronde is gratis online te spelen, zonder account: tien vragen, tien minuten.</p>
   <ul class="ronde-lijst">${rondes.map((r) => `<li><a href="/quiz/${esc(r.slug)}/">${esc(r.titel)}</a><br><span class="zacht">${esc(r.omschrijving)}</span></li>`).join("")}</ul>
@@ -184,6 +186,7 @@ async function hoofd() {
   copyFileSync(join(HIER, "speel.js"), join(doel, "speel-bestanden", "speel.js"));
   copyFileSync(join(HIER, "speel.css"), join(doel, "speel-bestanden", "speel.css"));
   copyFileSync(join(HIER, GELUID), join(doel, "speel-bestanden", GELUID));
+  copyFileSync(join(HIER, LOGO), join(doel, "speel-bestanden", LOGO));
   console.log(`${Object.keys(uit).length} bestanden geschreven`);
 }
 
