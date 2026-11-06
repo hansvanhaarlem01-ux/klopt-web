@@ -187,6 +187,11 @@ async function hoofd() {
   copyFileSync(join(HIER, "speel.css"), join(doel, "speel-bestanden", "speel.css"));
   copyFileSync(join(HIER, GELUID), join(doel, "speel-bestanden", GELUID));
   copyFileSync(join(HIER, LOGO), join(doel, "speel-bestanden", LOGO));
+  // ⭐ Migratie 169: de vingerafdruk van wat hier staat. webronde-controle leest hem op Pages en start deze Action
+  //    alleen als hij afwijkt van het huidige manifest. Ontbreekt hij in het manifest, dan geen bestand.
+  if (typeof manifest.inhoud_hash === "string") {
+    writeFileSync(join(doel, "speel-bestanden", "inhoud.txt"), `${manifest.inhoud_hash}\n`, "utf8");
+  }
   console.log(`${Object.keys(uit).length} bestanden geschreven`);
 }
 

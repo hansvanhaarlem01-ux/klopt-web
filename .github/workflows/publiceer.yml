@@ -1,9 +1,11 @@
 # Feature 150 — genereert de pagina's uit het openbare manifest. Geen geheimen: het manifest is openbaar en bevat per
 # constructie alleen gesloten rondes. Commit alleen bij echt verschil.
+#
+# ⭐ Geen eigen schema meer (migratie 169, 06-11): GitHub hield het kwartier niet aan, en het was 1.300 runs per twee
+#    weken voor één wijziging. De cron klopt-webronde-controle in Supabase start deze Action alleen als
+#    speel-bestanden/inhoud.txt afwijkt van het manifest. Met de hand starten kan altijd.
 name: publiceer
 on:
-  schedule:
-    - cron: "*/15 * * * *"
   workflow_dispatch: {}
 permissions:
   contents: write
