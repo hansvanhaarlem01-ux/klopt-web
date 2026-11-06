@@ -156,13 +156,16 @@ export function genereer(manifest, sjabloon) {
   for (const r of manifest.rondes) uit[`quiz/${r.slug}/index.html`] = pagina(r, manifest, false, sjabloon);
   uit["quizzen/index.html"] = lijstPagina(manifest);
 
+  // De homepage staat in site/ en niet hier, maar /sitemap.xml is er maar één: zonder deze regel ontbrak hij (06-11).
+  // Zonder lastmod: deze generator weet niet wanneer site/index.html wijzigde, en een verzonnen datum is erger dan geen.
   const regels = [
+    { pad: "/", datum: null },
     { pad: "/speel/", datum: speel.deadline },
     { pad: "/quizzen/", datum: speel.deadline },
     ...manifest.rondes.map((/** @type {any} */ r) => ({ pad: `/quiz/${r.slug}/`, datum: r.deadline })),
   ];
   uit["sitemap.xml"] = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
-    regels.map((r) => `  <url><loc>${SITE}${r.pad}</loc><lastmod>${String(r.datum).slice(0, 10)}</lastmod></url>`).join("\n")
+    regels.map((r) => `  <url><loc>${SITE}${r.pad}</loc>${r.datum ? `<lastmod>${String(r.datum).slice(0, 10)}</lastmod>` : ""}</url>`).join("\n")
   }\n</urlset>\n`;
   return uit;
 }
