@@ -51,13 +51,22 @@
       body: JSON.stringify(body),
     });
   }
+  // 259: waar kwam dit paginabezoek vandaan? Alleen de hostnaam; de server maakt er een groep van en bewaart alleen die.
+  // Lege tekst = de browser gaf geen verwijzer (direct).
+  var VERWIJZER = (function () {
+    try { return document.referrer ? new URL(document.referrer).hostname : ""; } catch (e) { return ""; }
+  })();
+
   /** ⛔ Tellen blokkeert nooit. */
   function tel(stap) {
+    // 259 (U1): een bezoek telt altijd de verwijzer van dít bezoek; start en afgerond die van het bezoek waarin de
+    // ronde begon (bewaard bij de rondestaat, zodat een herlaad hem niet verandert).
+    var verwijzer = stap !== "bezoek" && stand && typeof stand.verwijzer === "string" ? stand.verwijzer : VERWIJZER;
     try {
       fetch("/w/tel", {
         method: "POST", keepalive: true,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pagina: G.pagina, stap: stap }),
+        body: JSON.stringify({ pagina: G.pagina, stap: stap, verwijzer: verwijzer }),
       }).catch(function () {});
     } catch (e) { /* niets */ }
   }
@@ -605,6 +614,7 @@
           titel: d.titel, intro: d.intro, vragen: d.vragen, antwoorden: {},
           eindtijd: null,
           weggaan: 0, bonus: true, weg_op: null, weg_media: false, huidig: 0, uitslag: null,
+          verwijzer: VERWIJZER, // 259
         };
         bewaar();
         tel("start");

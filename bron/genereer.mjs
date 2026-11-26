@@ -141,7 +141,7 @@ function lijstPagina(manifest) {
   <a class="knop vol" href="/s/${LIJST_CODE}">Bekijk Klopt! in de winkel</a>
   <footer><a href="/">Over Klopt!</a> · <a href="/privacy/">Privacy</a></footer>
 </main>
-<script>try{fetch("/w/tel",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({pagina:"quizzen",stap:"bezoek"})}).catch(function(){})}catch(e){}</script>
+<script>try{var v="";try{v=document.referrer?new URL(document.referrer).hostname:""}catch(e){}fetch("/w/tel",{method:"POST",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify({pagina:"quizzen",stap:"bezoek",verwijzer:v})}).catch(function(){})}catch(e){}</script>
 </body>
 </html>
 `;
