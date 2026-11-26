@@ -174,9 +174,11 @@ function antwoordPagina(ronde, manifest, sjabloon) {
   const ld = [
     {
       "@context": "https://schema.org", "@type": "Quiz", name: naam, inLanguage: "nl", url: SITE + pad,
-      ...(o ? { about: o } : {}),
+      ...(o ? { about: { "@type": "Thing", name: o } } : {}),
+      // Google (Onderwijs V&A) herkent een quiz alleen met eduQuestionType "Flashcard" per vraag (Rich Results Test 26-11).
       hasPart: ronde.vragen.map((/** @type {any} */ v) => ({
-        "@type": "Question", text: v.tekst, acceptedAnswer: { "@type": "Answer", text: v.antwoord },
+        "@type": "Question", eduQuestionType: "Flashcard", text: v.tekst,
+        acceptedAnswer: { "@type": "Answer", text: v.antwoord },
       })),
     },
     {
