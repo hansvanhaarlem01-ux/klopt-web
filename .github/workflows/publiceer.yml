@@ -40,7 +40,8 @@ jobs:
         # ⚠️ Faalt nooit de Action: een gemiste aanmelding kost alleen tijd, de sitemap vangt hem op.
         if: hashFiles('gewijzigd.txt') != ''
         run: |
-          urls=$(sed -n -E 's#^(speel|quizzen|quiz/[^/]+)/index\.html$#https://klopt-app.nl/\1/#p' gewijzigd.txt | sort -u)
+          # 259: ook de antwoordpagina's (/quiz/<naam>/antwoorden/).
+          urls=$(sed -n -E 's#^(speel|quizzen|quiz/[^/]+(/antwoorden)?)/index\.html$#https://klopt-app.nl/\1/#p' gewijzigd.txt | sort -u)
           if [ -z "$urls" ]; then echo "geen pagina gewijzigd"; exit 0; fi
           echo "$urls"
           # GitHub Pages heeft even nodig; meld pas aan als de nieuwe versie te lezen is.
