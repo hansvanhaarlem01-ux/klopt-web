@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17100B">
+<title>{{TITEL}}</title>
+<meta name="description" content="{{OMSCHRIJVING}}">
+<link rel="canonical" href="{{CANONICAL}}">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/speel-bestanden/speel.css">
+<script type="application/ld+json">{{LD_JSON}}</script>
+</head>
+<body>
+<!-- 259: de antwoordpagina. ⛔ Geen spel hier en geen winkelknop: wie wil spelen, gaat naar de speelpagina (eigenaar 26-11). -->
+<main>
+  <a class="merk" href="/"><img src="/speel-bestanden/logo-96.png" alt="" width="48" height="48">Klopt!</a>
+
+  <h1>{{KOP}}</h1>
+  <p class="zacht">{{OPENING}}</p>
+
+  <div class="paneel eerst-spelen">
+    <a class="knop vol speel-link" href="{{SPEEL}}">Speel deze ronde eerst zelf</a>
+    <p class="stil">Tien minuten, gratis, zonder account. U typt zelf, de jury kijkt na.</p>
+  </div>
+
+  <h2>{{VRAGEN_KOP}}</h2>
+  <ol class="antwoorden">{{VRAGEN}}</ol>
+
+  <h2>{{APP_KOP}}</h2>
+  <p>{{APP_TEKST}}</p>
+  <p><a class="speel-link" href="{{SPEEL}}">Speel deze ronde</a></p>
+  <p><a href="/quizzen/">Meer pubquizvragen met antwoorden</a></p>
+
+  <footer>
+    <a href="/">Over Klopt!</a> · <a href="/privacy/">Privacy</a>
+  </footer>
+</main>
+<script type="application/json" id="gegevens">{{GEGEVENS}}</script>
+<script src="/speel-bestanden/antwoorden.js" defer></script>
+</body>
+</html>

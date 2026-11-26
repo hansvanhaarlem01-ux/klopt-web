@@ -198,3 +198,24 @@ audio.media { background: none; }
 .melding { padding: 12px 14px; border: 1px solid var(--foutRand); border-radius: 10px; margin-bottom: 14px; }
 footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--lijn); font-size: 14px; color: var(--tekstStil); }
 footer a { color: var(--tekstZacht); }
+
+/* --- 259: de antwoordpagina /quiz/<slug>/antwoorden/ ---
+   ⛔ Alleen bestaande kleuren (kleurcontrole.mjs). Gemeten paren: tekst op paneel (antwoord), tekstZacht op paneelDiep
+   (uitleg), lamp op night (Toon het antwoord), knopRand op night (scheiding en rand van het antwoordblok), opLamp op lamp. */
+.eerst-spelen .knop { margin-bottom: 10px; }
+.eerst-spelen .stil { margin: 0; }
+.antwoorden { list-style: none; counter-reset: vraag; padding: 0; margin: 0 0 8px; }
+.antwoorden > li { counter-increment: vraag; padding: 16px 0; border-bottom: 1px solid var(--knopRand); }
+.antwoorden > li:first-child { padding-top: 4px; }
+.antwoorden .vraag-tekst { font-size: 18px; margin-bottom: 10px; }
+.antwoorden .vraag-tekst::before { content: counter(vraag) ". "; color: var(--tekstZacht); font-weight: 700; }
+.antwoorden .instructie { margin: -4px 0 10px; }
+.keuzes { margin: 0 0 10px; padding-left: 20px; }
+.keuzes li { margin-bottom: 4px; }
+.vraag-beeld { display: block; max-width: 100%; height: auto; border-radius: 10px; margin: 0 0 10px; }
+.antwoorden details { margin-top: 4px; }
+.antwoorden summary { display: inline-flex; align-items: center; min-height: 44px; color: var(--lamp); font-weight: 700; cursor: pointer; }
+.antwoorden details[open] summary { color: var(--tekstZacht); }
+.antwoord-blok { background: linear-gradient(var(--paneel), var(--paneelDiep)); border: 1px solid var(--knopRand); border-radius: 12px; padding: 12px 14px; margin-top: 4px; }
+.antwoord-blok .antwoord { font-size: 18px; font-weight: 700; margin: 0; }
+.antwoord-blok .zacht { margin: 8px 0 0; }
